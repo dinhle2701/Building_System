@@ -1,5 +1,3 @@
 # Building Project with Microservice #
 
-## Deploy ##
-
-[https://center-building.vercel.app/](https://center-building.vercel.app/)
+## Deployment ## : https://building-system-mu.vercel.app/
