@@ -5,7 +5,6 @@ import { MdOutlineDashboard } from "react-icons/md";
 import { FaRegUser } from "react-icons/fa";
 import { MdApartment } from "react-icons/md";
 import { MdOutlineManageAccounts } from "react-icons/md";
-import { CiMoneyBill } from "react-icons/ci";
 import { FaUsers } from "react-icons/fa";
 import { MdErrorOutline } from "react-icons/md";
 import { MdOutlinePayment } from "react-icons/md";

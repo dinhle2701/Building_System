@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Table } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { useCallback } from 'react';
 import { ReactNotifications, Store } from 'react-notifications-component';
 
 const Vehicle = () => {
@@ -11,7 +12,7 @@ const Vehicle = () => {
     const [filterByApartment, setFilterByApartment] = useState('');
     const [filterByResident, setFilterByResident] = useState('');
 
-    const getVehiclesByResident = async () => {
+    const getVehiclesByResident = useCallback(async () => {
         try {
             const response = await fetch('http://localhost:8181/api/v1/resident/vehicles');
             const data = await response.json();
@@ -19,7 +20,6 @@ const Vehicle = () => {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
             setResidents(data.content);
-            console.log(residents)
             Store.addNotification({
                 title: "Lấy dữ liệu phương tiện thành công!",
                 type: "success",
@@ -42,7 +42,9 @@ const Vehicle = () => {
                 },
             });
         }
-    };
+    }, []);
+
+
     const fetchApartments = async () => {
         try {
             const response = await fetch("http://localhost:8181/api/v1/apartment");
@@ -57,10 +59,7 @@ const Vehicle = () => {
     useEffect(() => {
         getVehiclesByResident();
         fetchApartments()
-    }, []);
-    useEffect(() => {
-        console.log(residents)
-    }, []);
+    }, [getVehiclesByResident]);
 
     const filteredResidents = residents.filter((resident) => {
         const matchesSearchTerm =

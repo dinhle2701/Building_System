@@ -5,7 +5,7 @@ import { ReactNotifications, Store } from 'react-notifications-component';
 import './Service.css'
 
 const Service = () => {
-    const [selectedApartmentName, setSelectedApartmentName] = useState("");
+    const [selectedApartmentName] = useState("");
     const [latestUtilityUsage, setLatestUtilityUsage] = useState(null);
     const [selectedApartmentId, setSelectedApartmentId] = useState("");
     const [apartments, setApartments] = useState([]);

@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Table, Button, Modal, Pagination, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
-import { FaEye } from "react-icons/fa";
 import { CiEdit } from "react-icons/ci";
 import { CiTrash } from "react-icons/ci";
-import { MdDateRange } from "react-icons/md";
 import { FaRegEye } from "react-icons/fa";
 import { ReactNotifications, Store } from 'react-notifications-component';
 
