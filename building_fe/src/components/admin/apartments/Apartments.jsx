@@ -1,8 +1,12 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { Button, Table, Form, Modal, Pagination } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { FaEye } from "react-icons/fa";
-import { CiEdit, CiTrash } from "react-icons/ci";
+import { CiEdit } from "react-icons/ci";
+import { CiSearch } from "react-icons/ci";
+import { FaSquarePlus } from "react-icons/fa6";
 import { ReactNotifications, Store } from 'react-notifications-component';
 
 import './Apartment.css';
@@ -10,12 +14,9 @@ import './Apartment.css';
 const Apartments = () => {
     const [show, setShow] = useState(false);
     const [showUpdate, setShowUpdate] = useState(false);
-    // eslint-disable-next-line no-unused-vars
     const [error, setError] = useState('');
-    // eslint-disable-next-line no-unused-vars
     const [loading, setLoading] = useState(true);
     const handleShow = () => setShow(true);
-    // const handleUpdateShow = () => setShowUpdate(true)
     const handleUpdateClose = () => setShowUpdate(false)
     const handleClose = () => setShow(false);
     const [currentPage, setCurrentPage] = useState(0);
@@ -106,38 +107,6 @@ const Apartments = () => {
         }
     };
 
-    // const fetchAccountDetails = async (account_id) => {
-    //     try {
-    //         const response = await fetch(`http://localhost:8181/api/account/${account_id}/details`); // Thực hiện lấy danh sách căn hộ
-    //         if (!response.ok) {
-
-    //             throw new Error('Failed to fetch apartment data');
-    //         }
-    //         const data = await response.json();
-    //         setApartments(data.content); // Lưu dữ liệu căn hộ
-    //         console.log(data)
-    //         setTotalPages(data.page.totalPages); // Lưu tổng số trang
-    //         setResults(data.content);  // Cập nhật results với toàn bộ căn hộ ban đầu
-    //         handlePageChange()
-    //         Store.addNotification({
-    //             title: "Get Apartment successfully!",
-    //             type: "success", // green color for success
-    //             insert: "top",
-    //             container: "top-left",
-    //             dismiss: {
-    //                 duration: 2000, // Auto-dismiss after 4 seconds
-    //                 onScreen: true
-    //             }
-    //         });
-    //         setTimeout(() => {
-    //         }, 2000);
-    //     } catch (error) {
-    //         setError(error.message);
-    //     } finally {
-    //         setLoading(false);
-    //     }
-    // };
-
     useEffect(() => {
         fetchApartments(currentPage, size);
     }, [currentPage, size]);
@@ -179,8 +148,6 @@ const Apartments = () => {
         e.preventDefault();
         createApartment(newApartment); // Gửi thông tin căn hộ mới
     };
-
-
 
     const handleUpdateShow = (apartment) => {
         setNewApartment(apartment); // Gán thông tin căn hộ vào state
@@ -233,13 +200,12 @@ const Apartments = () => {
         }
     };
 
-
     return (
         <div className="apartment">
             <ReactNotifications />
             <div className="header p-3 w-100 bg-white d-flex justify-content-between align-items-center">
                 <h3 className="m-0">Danh Sách Căn Hộ</h3>
-                <Button onClick={handleShow}>Thêm mới</Button>
+                <FaSquarePlus className='icon fs-1 text-primary' onClick={handleShow} />
             </div>
 
             <div className="table-content bg-white m-3 p-3">
@@ -268,7 +234,9 @@ const Apartments = () => {
                                     onChange={(e) => setSearchTerm(e.target.value)}
                                 />
                             </Form.Group>
-                            <Button type="submit">Tìm</Button>
+                            <Button type="submit">
+                                <CiSearch className="fs-4" />
+                            </Button>
                         </Form>
                     </div>
                 </div>
@@ -298,16 +266,8 @@ const Apartments = () => {
                                     <td>{apartment.create_at}</td>
                                     <td>{apartment.update_at}</td>
                                     <td className="d-flex justify-content-around align-items-center">
-                                        <Button variant="secondary" onClick={() => handleApartmentDetails(apartment.apartment_id)}>
-                                            <FaEye className="pb-1" />
-                                        </Button>
-                                        <Button variant="warning">
-                                            {/* <CiEdit className="pb-1" onClick={() => handleUpdate(apartment.apartment_id)} /> */}
-                                            <CiEdit className="pb-1" onClick={() => handleUpdateShow(apartment)} />
-                                        </Button>
-                                        {/* <Button variant="danger" onClick={() => deleteApartmentById(apartment.apartment_id)}>
-                                            <CiTrash className="pb-1" />
-                                        </Button> */}
+                                        <FaEye className="icon fs-2 pb-1 text-secondary fs-2" onClick={() => handleApartmentDetails(apartment.apartment_id)} />
+                                        <CiEdit className="icon pb-1 fs-2 text-warning" onClick={() => handleUpdateShow(apartment)} />
                                     </td>
                                 </tr>
                             ))
@@ -368,19 +328,23 @@ const Apartments = () => {
                             />
                         </Form.Group>
 
-                        <Form.Group className="mb-3">
+                        {/* <Form.Group className="mb-3">
                             <Form.Label>Trạng Thái</Form.Label>
                             <Form.Select
                                 name="apartmentStatus"
-                                value={newApartment.apartment_status}
+                                value={newApartment.apartment_status || "DEFAULT"}
                                 onChange={handleChange}
                             >
-                                <option>Chọn Trạng Thái Phòng</option>
+                                {!newApartment.apartment_status && (
+                                    <option value="DEFAULT" disabled hidden>
+                                        Chọn Trạng Thái Phòng
+                                    </option>
+                                )}
                                 <option value="TRỐNG">TRỐNG</option>
                                 <option value="ĐANG SỬ DỤNG">ĐANG SỬ DỤNG</option>
                                 <option value="ĐANG SỬA CHỮA">ĐANG SỬA CHỮA</option>
                             </Form.Select>
-                        </Form.Group>
+                        </Form.Group> */}
 
                     </Form>
                 </Modal.Body>

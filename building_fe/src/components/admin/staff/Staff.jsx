@@ -5,6 +5,7 @@ import { FaEye } from "react-icons/fa";
 import { CiEdit } from "react-icons/ci";
 import { CiTrash } from "react-icons/ci";
 import { MdDateRange } from "react-icons/md";
+import { FaRegEye } from "react-icons/fa";
 import { ReactNotifications, Store } from 'react-notifications-component';
 
 
@@ -121,36 +122,6 @@ const Staff = () => {
         }
     };
 
-    // const getStaffs = async (page, size) => {
-    //     try {
-    //         const response = await fetch(`http://localhost:8907/api/v1/staff`);
-    //         if (!response.ok) {
-    //             throw new Error('Failed to fetch staff data');
-    //         }
-    //         const data = await response.json();
-    //         setStaffs(data.content); // Giả sử dữ liệu được trả về trong `data.content`
-    //         setTotalPages(data.totalPages); // Giả sử dữ liệu tổng số trang là `data.totalPages`
-    //         console.log(data);
-    //         Store.addNotification({
-    //             title: "Get all staff Successful!",
-    //             message: "Waiting to navigate dashboard",
-    //             type: "success", // green color for success
-    //             insert: "top",
-    //             container: "top-left",
-    //             dismiss: {
-    //               duration: 2000, // Auto-dismiss after 4 seconds
-    //               onScreen: true
-    //             }
-    //           });
-
-    //           setTimeout(() => {
-    //           }, 2000);
-    //     } catch (error) {
-    //         setError(error.message);
-    //     } finally {
-    //         setLoading(false);
-    //     }
-    // };
 
     // Gọi hàm API khi trang hoặc pageSize thay đổi
     useEffect(() => {
@@ -247,7 +218,6 @@ const Staff = () => {
                             <th>Email</th>
                             <th>Số Điện Thoại</th>
                             <th>Ngày Sinh</th>
-                            <th>Số giờ làm</th>
                             <th>Hành Động</th>
                         </tr>
                     </thead>
@@ -271,23 +241,11 @@ const Staff = () => {
                                     <td>{staff.email}</td>
                                     <td>{staff.phone}</td>
                                     <td>{staff.birthday}</td>
-                                    <td>{staff.work_time}</td>
                                     <td className="d-flex justify-content-around align-items-center">
-                                        <Button variant="secondary">
-                                            <FaEye
-                                                className="pb-1"
-                                                onClick={() => handleResidentDetails(staff.staff_id)}
-                                            />
-                                        </Button>
-                                        <Button variant="warning">
-                                            <CiEdit className="pb-1" />
-                                        </Button>
-                                        <Button variant="danger" onClick={() => deleteStaffById(staff.staff_id)}>
-                                            <CiTrash className="pb-1" />
-                                        </Button>
-                                        <Button>
-                                            <MdDateRange />
-                                        </Button>
+                                        <FaRegEye className='icon fs-2 text-secondary me-2' onClick={() => handleResidentDetails(staff.staff_id)} style={{ fontWeight: "bold" }} />
+                                        <CiEdit className="icon pb-1 fs-2 me-1 text-warning"  />
+                                        <CiTrash className='icon pb fs-2 text-danger' onClick={() => deleteStaffById(staff.staff_id)}/>
+                                        
                                     </td>
                                 </tr>
                             ))
@@ -339,6 +297,7 @@ const Staff = () => {
                                 value={newStaff.staff_position}
                                 onChange={handleChange}
                             >
+                                <option value="NHÂN VIÊN LỄ TÂN">NHÂN VIÊN LỄ TÂN</option>
                                 <option value="NHÂN VIÊN KỸ THUẬT">NHÂN VIÊN KỸ THUẬT</option>
                                 <option value="NHÂN VIÊN VỆ SINH">NHÂN VIÊN VỆ SINH</option>
                                 <option value="NHÂN VIÊN BẢO VỆ">NHÂN VIÊN BẢO VỆ</option>
@@ -378,16 +337,6 @@ const Staff = () => {
                             />
                         </Form.Group>
 
-                        <Form.Group className="mb-3">
-                            <Form.Label>Số Giờ Làm Việc</Form.Label>
-                            <Form.Control
-                                type="number"
-                                name='work_time'
-                                value={newStaff.work_time}
-                                onChange={handleChange}
-                                required
-                            />
-                        </Form.Group>
 
                         <Modal.Footer>
                             <Button variant="secondary" onClick={handleClose}>

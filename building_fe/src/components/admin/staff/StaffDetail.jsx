@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-
 import React, { useEffect, useState } from 'react';
 import { Table, Form } from 'react-bootstrap'
 import { useParams } from 'react-router-dom'; // Hook để lấy params từ URL
@@ -9,7 +8,6 @@ import fetchURL from '../../../api/AxiosInstance';
 const StaffDetail = () => {
   const { id } = useParams(); // Lấy id từ URL
   const [staffs, setStaffs] = useState(null);
-  const [editing, setEditing] = useState(false);
 
   useEffect(() => {
     fetchResidentDetails();
@@ -124,10 +122,6 @@ const StaffDetail = () => {
                 <th>Số giờ làm việc:</th>
                 <td>{staffs.work_time}</td>
               </tr>
-              <tr>
-                <th>Trạng thái:</th>
-                <td>{staffs.stafStatus}</td>
-              </tr>
             </tbody>
           </Table>
         </div>
@@ -135,42 +129,6 @@ const StaffDetail = () => {
 
       </div>
 
-      <div className='bg-white m-3 p-5'>
-        <h3 className='fw-bold text-center'>Lịch Làm Việc</h3>
-
-        <div className='work-time'>
-          <Table table bordered striped hover className='text-center'>
-            <thead></thead>
-            <tbody>
-              <tr>
-                <td>Thứ</td>
-                <td>Tổng Thời Gian</td>
-                <td>Thời Gian Cụ Thể</td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>8h</td>
-                <td>13:00 tới 18:00</td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>8h</td>
-                <td>13:00 tới 18:00</td>
-              </tr>
-              <tr>
-                <td>4</td>
-                <td>8h</td>
-                <td>13:00 tới 18:00</td>
-              </tr>
-              <tr>
-                <td>5</td>
-                <td>8h</td>
-                <td>13:00 tới 18:00</td>
-              </tr>
-            </tbody>
-          </Table>
-        </div>
-      </div>
     </div>
   );
 };
